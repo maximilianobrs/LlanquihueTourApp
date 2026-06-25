@@ -3,11 +3,17 @@ package model;
 public class ExcursionCultural extends ServicioTuristico{
     private String lugarTuristico;
 
+    public ExcursionCultural() {}
+
+    public ExcursionCultural(String lugarTuristico) {
+        this.lugarTuristico = lugarTuristico;
+    }
 
     public ExcursionCultural(String nombre, int duracionHoras, String lugarTuristico) {
         super(nombre, duracionHoras);
         this.lugarTuristico = lugarTuristico;
     }
+
 
     public String getLugarTuristico() {
         return lugarTuristico;

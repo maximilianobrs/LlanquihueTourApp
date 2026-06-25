@@ -3,11 +3,18 @@ package model;
 public class PaseoLacustre extends ServicioTuristico{
     private String tipoDeEmbarcacion;
 
+    public PaseoLacustre(){}
+
+    public PaseoLacustre(String tipoDeEmbarcacion) {
+        this.tipoDeEmbarcacion = tipoDeEmbarcacion;
+    }
 
     public PaseoLacustre(String nombre, int duracionHoras, String tipoDeEmbarcacion) {
         super(nombre, duracionHoras);
         this.tipoDeEmbarcacion = tipoDeEmbarcacion;
     }
+
+
 
     public String getTipoDeEmbarcacion() {
         return tipoDeEmbarcacion;

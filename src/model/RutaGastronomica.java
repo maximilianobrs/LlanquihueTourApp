@@ -3,6 +3,11 @@ package model;
 public class RutaGastronomica extends ServicioTuristico {
     private int numeroDeParadas;
 
+    public RutaGastronomica(){}
+
+    public RutaGastronomica(int numeroDeParadas) {
+        this.numeroDeParadas = numeroDeParadas;
+    }
 
     public RutaGastronomica(String nombre, int duracionHoras, int numeroDeParadas) {
         super(nombre, duracionHoras);
