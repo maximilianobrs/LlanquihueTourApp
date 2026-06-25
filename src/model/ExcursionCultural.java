@@ -28,7 +28,7 @@ public class ExcursionCultural extends ServicioTuristico{
         return "ExcursionCultural{" +
                 " Nombre: " + getNombre() +
                 " | Duracion: " + getDuracionHoras() + " h" +
-                " | lugarTuristico: " + getLugarTuristico() +
+                " | Lugar turistico: " + getLugarTuristico() +
                 '}';
     }
 }
