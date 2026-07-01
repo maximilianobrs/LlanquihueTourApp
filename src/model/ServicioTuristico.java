@@ -1,6 +1,6 @@
 package model;
 
-public class ServicioTuristico {
+public class  ServicioTuristico {
     private String nombre;
     private int duracionHoras;
 
@@ -11,7 +11,6 @@ public class ServicioTuristico {
         this.nombre = nombre;
         this.duracionHoras = duracionHoras;
     }
-
 
 
     public String getNombre() {
@@ -30,6 +29,11 @@ public class ServicioTuristico {
         this.duracionHoras = duracionHoras;
     }
 
+    public void mostrarInformacion(){
+        System.out.println("Nombre: " + getNombre() +
+                " | Duración: " + getNombre() + " h");
+    };
+    
     @Override
     public String toString() {
         return "Servicio Turistico{" +

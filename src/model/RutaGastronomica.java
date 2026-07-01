@@ -23,6 +23,11 @@ public class RutaGastronomica extends ServicioTuristico {
     }
 
     @Override
+    public void mostrarInformacion() {
+        System.out.println("Nombre: " + getNombre() + " | Duracion: " + getDuracionHoras() + " h" + " | Numero de paradas: " + getNumeroDeParadas());
+    }
+
+    @Override
     public String toString() {
         return "Ruta Gastronomica{" +
                 " Nombre: " + getNombre() +

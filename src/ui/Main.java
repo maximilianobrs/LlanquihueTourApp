@@ -1,5 +1,6 @@
 package ui;
 import data.GestorServicios;
+import model.ServicioTuristico;
 
 public class Main {
     public static void main(String[] args) {
@@ -8,6 +9,7 @@ public class Main {
 
         GestorServicios servicio = new GestorServicios();
 
+        servicio.crearServicios();
 
         System.out.println("\n==== CARGANDO DATOS DE SERVICIO ====");
         do {
@@ -23,8 +25,9 @@ public class Main {
         } while (contador <= 3);
         System.out.println("=== TERMINADO CARGA DE DATOS ===\n");
 
-        servicio.crearServicios();
-
+        for (ServicioTuristico s: servicio.obtenerServicios()){
+            s.mostrarInformacion();
+        }
 
     }
 }
