@@ -31,7 +31,7 @@ public class  ServicioTuristico {
 
     public void mostrarInformacion(){
         System.out.println("Nombre: " + getNombre() +
-                " | Duración: " + getNombre() + " h");
+                " | Duración: " + getDuracionHoras() + " h");
     };
     
     @Override
