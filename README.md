@@ -1,4 +1,4 @@
-# ☕ Evaluacion Semana 6 - Desarrollo Orientado a Objetos I
+# ☕ Evaluacion Semana 7 - Desarrollo Orientado a Objetos I
 
 ---------------------------------------------
 ## 👋 Autor del proyecto
@@ -12,11 +12,9 @@
 
 ## 📚 Descripción general del sistema
 
-El objetivo de esta semana es crear un sistema para la agencia turística "Llanquihue Tour", aplicando el concepto de herencia mediante una clase base y varias clases hijas que representan distintos tipos de servicios turísticos.
+Este proyecto corresponde al desarrollo de un sistema para la agencia de turismo Llanquihue Tour, utilizando los principios de la Programación Orientada a Objetos en Java.
 
-- model: contiene la jerarquía de clases (ServicioTuristico y sus subclases)
-- data: creación de instancias de prueba (GestorServicios)
-- ui: punto de entrada del sistema (Main)
+En esta semana se incorporó el uso de polimorfismo y colecciones genéricas (List), permitiendo almacenar distintos tipos de servicios turísticos en una misma colección y recorrerlos de forma dinámica mediante referencias de la superclase.
 
 ## ✨ Funcionalidades adicionales
 
