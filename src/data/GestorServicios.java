@@ -10,11 +10,6 @@ public class GestorServicios {
 
     public void crearServicios(){
 
-        lista.add(new ServicioTuristico("City Tour Puerto Montt", 2));
-        lista.add(new ServicioTuristico("Visita al Mercado Angelmó", 3));
-        lista.add(new ServicioTuristico("Recorrido Costanera", 1));
-
-
         lista.add(new RutaGastronomica("Ruta del Salmón", 4, 5));
         lista.add(new RutaGastronomica("Ruta Cervecera", 3, 4));
         lista.add(new RutaGastronomica("Ruta del Mar", 5, 6));

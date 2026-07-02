@@ -1,6 +1,6 @@
 package model;
 
-public abstract class  ServicioTuristico {
+public class  ServicioTuristico {
     private String nombre;
     private int duracionHoras;
 
@@ -29,7 +29,9 @@ public abstract class  ServicioTuristico {
         this.duracionHoras = duracionHoras;
     }
 
-    public abstract void mostrarInformacion();
+    public void mostrarInformacion(){
+        System.out.print("Nombre: " + getNombre() + " | Duracion: " + getDuracionHoras() + " h");
+    };
     
     @Override
     public String toString() {
