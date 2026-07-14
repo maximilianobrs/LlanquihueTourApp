@@ -1,4 +1,4 @@
-# ☕ Evaluacion Semana 7 - Desarrollo Orientado a Objetos I
+# ☕ Evaluacion Final - Desarrollo Orientado a Objetos I
 
 ---------------------------------------------
 ## 👋 Autor del proyecto
