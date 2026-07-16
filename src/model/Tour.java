@@ -11,10 +11,10 @@ public class Tour implements Registrable {
     private int precio;
 
     private GuiaTuristico guiaTuristico;
-    private ArrayList<Cliente> clientes;
+    private Vehiculo vehiculo;
+    private ArrayList<Cliente> clientes = new ArrayList<>();
 
     public Tour() {
-        clientes = new ArrayList<>();
     }
 
     public Tour(String codigoTour, String nombre, String destino, int precio) {
@@ -22,15 +22,15 @@ public class Tour implements Registrable {
         this.nombre = nombre;
         this.destino = destino;
         this.precio = precio;
-        this.clientes = new ArrayList<>();
     }
 
-    public Tour(String codigoTour, String nombre, String destino, int precio, GuiaTuristico guiaTuristico, ArrayList<Cliente> clientes) {
+    public Tour(String codigoTour, String nombre, String destino, int precio, GuiaTuristico guiaTuristico, Vehiculo vehiculo, ArrayList<Cliente> clientes) {
         this.codigoTour = codigoTour;
         this.nombre = nombre;
         this.destino = destino;
         this.precio = precio;
         this.guiaTuristico = guiaTuristico;
+        this.vehiculo = vehiculo;
         this.clientes = clientes;
     }
 
@@ -74,6 +74,14 @@ public class Tour implements Registrable {
         this.guiaTuristico = guiaTuristico;
     }
 
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+
     public ArrayList<Cliente> getClientes() {
         return clientes;
     }
@@ -84,6 +92,22 @@ public class Tour implements Registrable {
 
     @Override
     public String mostrarResumen(){
-        return "Tour | " + "Codigo: " + getCodigoTour() +" | " + "Nombre: " + getNombre() + " | " + "Destino: " + getDestino() + " | " + "Precio: " + getPrecio();
+        return "Tour | " + "Codigo: " + getCodigoTour() +
+                " | " + "Nombre: " + getNombre() +
+                " | " + "Destino: " + getDestino() +
+                " | " + "Precio: " + getPrecio() +
+                " | " + "Guia: " + getGuiaTuristico() +
+                " | " + "Vehiculo: " + getVehiculo() +
+                " | " +"Clientes: { "+getClientes() + " }";
+    }
+
+    @Override
+    public String registrar() {
+        return "Tour "+ getNombre()+" registrado correctamente.";
+    }
+
+    @Override
+    public String toString(){
+        return "ID: " + getCodigoTour() + " T: " + getNombre();
     }
 }

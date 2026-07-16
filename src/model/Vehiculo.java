@@ -2,6 +2,8 @@ package model;
 
 import interfaces.Registrable;
 
+import java.util.ArrayList;
+
 /**
  * Representa un vehículo utilizado por la agencia turística.
  * Hereda el código identificador de RecursoAgencia e incorpora
@@ -15,6 +17,7 @@ public class Vehiculo implements Registrable {
     private String patente;
     private String modelo;
     private int capacidad;
+
 
     public Vehiculo() {
     }
@@ -58,8 +61,22 @@ public class Vehiculo implements Registrable {
         this.capacidad = capacidad;
     }
 
+
     @Override
     public String mostrarResumen() {
-        return "Vehiculo | " + "Patente: " + getPatente() + " | " + "Modelo: " + getModelo() + " | " + "Capacidad: " + getCapacidad() + " Pasajeros";
+        return "Vehiculo | " + "Codigo: " + getCodigoVehiculo() +
+                " | " + "Patente: " + getPatente() +
+                " | " + "Modelo: " + getModelo() +
+                " | " + "Capacidad: " + getCapacidad() + " Pasajeros";
+    }
+
+    @Override
+    public String registrar() {
+        return "Vehículo " + getModelo() + " registrado correctamente";
+    }
+
+    @Override
+    public String toString(){
+        return "ID: " + getCodigoVehiculo() + " V: " + getModelo();
     }
 }

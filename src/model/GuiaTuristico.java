@@ -1,6 +1,4 @@
 package model;
-
-
 import interfaces.Registrable;
 
 /**
@@ -40,6 +38,7 @@ public class GuiaTuristico extends Personal implements Registrable {
         this.experiencia = experiencia;
     }
 
+
     public String getCodigoGuia() {
         return codigoGuia;
     }
@@ -64,8 +63,34 @@ public class GuiaTuristico extends Personal implements Registrable {
         this.experiencia = experiencia;
     }
 
+    public String getCorreo(){
+        return getContacto().getCorreo();
+    }
+    public String getTelefono(){
+        return getContacto().getTelefono();
+    }
+
     @Override
     public String mostrarResumen() {
-        return "Guía Turístico | " + "Código: " + getCodigoGuia() + " | " + "Nombre: " + getNombre() + " | " + "Edad: " + getEdad() + " Años"+ " | " + "Idioma: " + getIdioma();
+        return "Guía Turístico | " + "Código: " + getCodigoGuia() +
+                " | " + "Nombre: " + getNombre() +
+                " | " + "Edad: " + getEdad() + " Años"+
+                " | " + "Rut: " + getRut() +
+                " | " + "Correo: " +getCorreo() +
+                " | " + "Telefono: " + getTelefono() +
+                " | " + "Idioma: " + getIdioma() +
+                " | " + "Fecha ingreso: " + getFechaDeIngreso() +
+                " | " + "Años experiencia: " + getExperiencia() + " Años";
+
+    }
+
+    @Override
+    public String registrar() {
+        return "Guia "+ getNombre() +" registrado correctamente";
+    }
+
+    @Override
+    public String toString(){
+        return "ID: " + getCodigoGuia() + " G: " + getNombre();
     }
 }
