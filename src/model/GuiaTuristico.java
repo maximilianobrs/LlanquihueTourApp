@@ -31,7 +31,7 @@ public class GuiaTuristico extends Personal implements Registrable {
         this.experiencia = experiencia;
     }
 
-    public GuiaTuristico(String nombre, int edad, String rut, Contacto contacto, String fechaDeIngreso, String codigoGuia, String idioma, int experiencia) {
+    public GuiaTuristico(String codigoGuia,String nombre, int edad, String rut, Contacto contacto, String fechaDeIngreso,  String idioma, int experiencia) {
         super(nombre, edad, rut, contacto, fechaDeIngreso);
         this.codigoGuia = codigoGuia;
         this.idioma = idioma;

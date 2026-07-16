@@ -1,25 +1,15 @@
 package utils;
 
-import interfaces.Registrable;
-import java.util.List;
+import java.util.Objects;
 
 
 public class AppUtils {
 
-    public static String generarCodigo(List<Registrable> recursos, Class<?> tipo, String prefijo) {
-
-        int contador = 0;
-
-        for (Registrable r : recursos) {
-            if (tipo.isInstance(r)) {
-                contador++;
-            }
-        }
-
-        return prefijo + String.format("%03d", contador + 1);
+    public static String generarCodigo(int cantidad, String prefijo) {
+        return prefijo + String.format("%03d", cantidad + 1);
     }
 
-    public static boolean isValid(String rut) {
+    public static boolean rutEsValido(String rut) {
         if (rut == null) {
             return false;
         }
@@ -54,7 +44,7 @@ public class AppUtils {
         return dv.length() == 1 && dv.matches("[0-9K]");
     }
 
-    public static boolean isValidMobile(String numero) {
+    public static boolean mobilEsValido(String numero) {
         if (numero == null) {
             return false;
         }
@@ -70,7 +60,7 @@ public class AppUtils {
         return numero.matches("9\\d{8}");
     }
 
-    public static boolean isValidEmail(String email) {
+    public static boolean emailEsValido(String email) {
         if (email == null) {
             return false;
         }

@@ -12,7 +12,7 @@ public class Cliente extends Persona implements Registrable {
         this.codigoCliente = codigoCliente;
     }
 
-    public Cliente(String nombre, int edad, String rut, Contacto contacto, String codigoCliente) {
+    public Cliente(String codigoCliente,String nombre, int edad, String rut, Contacto contacto) {
         super(nombre, edad, rut, contacto);
         this.codigoCliente = codigoCliente;
     }

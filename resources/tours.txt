@@ -1,0 +1,4 @@
+T001;Ruta Lagos del Sur;Puerto Varas;45000
+T002;Aventura Volcan Osorno;Volcan Osorno;60000
+T003;Exploracion Chiloé;Castro;75000
+T004;Sendero Patagonia;Parque Nacional;90000

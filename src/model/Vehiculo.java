@@ -2,8 +2,6 @@ package model;
 
 import interfaces.Registrable;
 
-import java.util.ArrayList;
-
 /**
  * Representa un vehículo utilizado por la agencia turística.
  * Hereda el código identificador de RecursoAgencia e incorpora

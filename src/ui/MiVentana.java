@@ -98,7 +98,7 @@ public class MiVentana extends JFrame {
     private final JLabel lblConfigGuia = new JLabel("Guia: ");
     private final JLabel lblConfigVehiculo = new JLabel("Vehiculo: ");
 
-    private final JButton btnConfigTour = new JButton("Agregar configuracion");
+    private final JButton btnGuardarConfig = new JButton("Guardar configuracion");
 
     // ==================== Formulario incripcion tour ====================
     private final JComboBox<Cliente> comboInscripcionCliente = new JComboBox<>();
@@ -108,7 +108,7 @@ public class MiVentana extends JFrame {
     private final JLabel lblInscripcionTour = new JLabel("Tour: ");
 
 
-    private final JButton btnGuardarInscripcion = new JButton("Inscripcion cliente");
+    private final JButton btnGuardarInscripcion = new JButton("Guardar Inscripción");
 
     // ==================== Consola de salida ====================
     private final JTextArea txtConsola = new JTextArea();
@@ -136,15 +136,17 @@ public class MiVentana extends JFrame {
     private final JButton btnSalir = new JButton("Salir");
 
     // ==================== Constructor ====================
-    public MiVentana(GestorEntidades gestorCompartido) {
+    public MiVentana(GestorEntidades gestor) {
+
+        this.g = gestor;
+
         // Paneles con layout inicial
-        this.g = gestorCompartido;
         panelCliente = new JPanel(new GridLayout(6, 2, 8, 10));
         panelGuia = new JPanel(new GridLayout(9, 2, 8, 10));
         panelVehiculo = new JPanel(new GridLayout(5, 2, 8, 10));
-        panelTour = new JPanel(new GridLayout(4,2,8,10));
-        panelConfigTour = new JPanel(new GridLayout(4,2,8,10));
-        panelInscripcion = new JPanel(new GridLayout(3,2,8,10));
+        panelTour = new JPanel(new GridLayout(4, 2, 8, 10));
+        panelConfigTour = new JPanel(new GridLayout(4, 2, 8, 10));
+        panelInscripcion = new JPanel(new GridLayout(3, 2, 8, 10));
         panelConsola = new JPanel(new BorderLayout());
         panelInferior = new JPanel(new GridLayout(1, 2, 10, 10));
         panelIzquierdo = new JPanel(new BorderLayout());
@@ -251,7 +253,7 @@ public class MiVentana extends JFrame {
         panelVehiculo.add(btnAgregarVehiculo);
     }
 
-    private void panelTour(){
+    private void panelTour() {
         panelTour.setBorder(
                 BorderFactory.createCompoundBorder(
                         BorderFactory.createTitledBorder("Registrar Tour"),
@@ -269,7 +271,7 @@ public class MiVentana extends JFrame {
         panelTour.add(btnAgregarTour);
     }
 
-    private void panelConfigTour(){
+    private void panelConfigTour() {
         panelConfigTour.setBorder(
                 BorderFactory.createCompoundBorder(
                         BorderFactory.createTitledBorder("Configurar Tour"),
@@ -283,10 +285,10 @@ public class MiVentana extends JFrame {
         panelConfigTour.add(lblConfigVehiculo);
         panelConfigTour.add(comboVehiculo);
         panelConfigTour.add(new JLabel());
-        panelConfigTour.add(btnConfigTour);
+        panelConfigTour.add(btnGuardarConfig);
     }
 
-    private void panelInscripcion(){
+    private void panelInscripcion() {
         panelInscripcion.setBorder(
                 BorderFactory.createCompoundBorder(
                         BorderFactory.createTitledBorder("Configurar Tour"),
@@ -364,91 +366,91 @@ public class MiVentana extends JFrame {
 
     // ==================== Eventos ====================
     private void registrarEventos() {
-        btnAgregarCliente.addActionListener(e -> agregarCliente());
-        btnAgregarGuia.addActionListener(e -> agregarGuia());
-        btnAgregarVehiculo.addActionListener(e -> agregarVehiculo());
-        btnAgregarTour.addActionListener(e -> agregarTour());
-        btnConfigTour.addActionListener(e -> agregarConfigTour());
+        btnAgregarCliente.addActionListener(e -> {
+            cargarClientesEnConsola();
+            agregarCliente();
+        });
+        btnAgregarGuia.addActionListener(e -> {
+            cargarGuiasEnConsola();
+            agregarGuia();
+        });
+        btnAgregarVehiculo.addActionListener(e -> {
 
-        btnClientes.addActionListener(e -> mostrarFormulario(panelCliente));
-        btnGuias.addActionListener(e -> mostrarFormulario(panelGuia));
-        btnVehiculos.addActionListener(e -> mostrarFormulario(panelVehiculo));
-        btnTours.addActionListener(e -> mostrarFormulario(panelTour));
+            agregarVehiculo();
+        });
+        btnAgregarTour.addActionListener(e -> {
+            cargarToursEnConsola();
+            agregarTour();
+        });
+
+        btnGuardarConfig.addActionListener(e -> {
+            agregarConfigTour();
+            cargarToursEnConsola();
+        });
+        btnGuardarInscripcion.addActionListener(e -> {
+            inscripcionCliente();
+            cargarToursEnConsola();
+        });
+
+
+        btnClientes.addActionListener(e -> {
+            txtConsola.setText("");
+            mostrarFormulario(panelCliente);
+        });
+        btnGuias.addActionListener(e -> {
+            txtConsola.setText("");
+            mostrarFormulario(panelGuia);
+        });
+        btnVehiculos.addActionListener(e -> {
+            txtConsola.setText("");
+            mostrarFormulario(panelVehiculo);
+        });
+        btnTours.addActionListener(e -> {
+            txtConsola.setText("");
+            mostrarFormulario(panelTour);
+        });
+
         btnInscribirCliente.addActionListener(e -> {
+            cargarToursEnConsola();
             actualizarCombos();
             mostrarFormulario(panelInscripcion);
         });
 
-        btnConfigurarTour.addActionListener(e ->{
+        btnConfigurarTour.addActionListener(e -> {
+            cargarToursEnConsola();
             actualizarCombos();
             mostrarFormulario(panelConfigTour);
         });
 
         btnMostrarRegistros.addActionListener(e -> {
-            txtConsola.setText("");
-            String datos = g.generarReporte();
-            if(datos.isEmpty()){
-                JOptionPane.showMessageDialog(this, "No hay ningun registro.");
-                return;
-            }
-            txtConsola.append(datos);
+            cargarRegistrosEnConsola();
             actualizarTotal();
         });
 
         btnMostrarClientes.addActionListener(e -> {
-            txtConsola.setText("");
-            String datos = g.getClientes();
-            if(datos.isEmpty()){
-                JOptionPane.showMessageDialog(this, "No hay ningun cliente registrado.");
-                return;
-            }
-            txtConsola.append(datos);
+            cargarClientesEnConsola();
             actualizarTotal();
         });
+
         btnMostrarGuia.addActionListener(e -> {
-            txtConsola.setText("");
-            String datos = g.getGuias();
-            if(datos.isEmpty()){
-                JOptionPane.showMessageDialog(this, "No hay ningun guia registrado.");
-                return;
-            }
-            txtConsola.append(datos);
+            cargarGuiasEnConsola();
             actualizarTotal();
         });
+
         btnMostrarTours.addActionListener(e -> {
-            txtConsola.setText("");
-            String datos = g.getTours();
-            if(datos.isEmpty()){
-                JOptionPane.showMessageDialog(this, "No hay ningun tour registrado.");
-                return;
-            }
-            txtConsola.append(datos);
+
+            cargarToursEnConsola();
             actualizarTotal();
         });
+
         btnMostrarVehiculo.addActionListener(e -> {
-            txtConsola.setText("");
-            String datos = g.getVehiculos();
-            if(datos.isEmpty()){
-                JOptionPane.showMessageDialog(this, "No hay ningun vehiculo registrado.");
-                return;
-            }
-            txtConsola.append(datos);
+            cargarVehiculosEnConsola();
             actualizarTotal();
         });
 
         btnBuscar.addActionListener(e -> {
-            txtConsola.setText("");
-            String busqueda = tfTextoBuscar.getText().trim();
-            if(busqueda.isEmpty()){
-                JOptionPane.showMessageDialog(this, "Debe ingresar un parametro de busqueda.");
-                return;
-            }
-            String datos = g.getBuscar(busqueda);
-            if(datos.isEmpty()){
-                JOptionPane.showMessageDialog(this, "No hay ningun registro de " + busqueda + ".");
-                return;
-            }
-            txtConsola.append(datos);
+
+            cargarBusquedaConsola();
             actualizarTotal();
         });
 
@@ -482,31 +484,39 @@ public class MiVentana extends JFrame {
             int parseEdad = Integer.parseInt(edad);
             int parseExperiencia = Integer.parseInt(experiencia);
 
-            if (parseEdad < 0){
+            if (parseEdad < 0) {
                 JOptionPane.showMessageDialog(this, "La edad debe ser mayor o igual a 0.");
                 return;
-            } else if (parseExperiencia < 0) {
+            }
+            if (parseExperiencia < 0) {
                 JOptionPane.showMessageDialog(this, "Los años de experiencia deben ser mayor o igual a 0.");
                 return;
-            }else if(!AppUtils.isValid(rut)){
+            }
+            if (!AppUtils.rutEsValido(rut)) {
                 JOptionPane.showMessageDialog(this, "El rut es invalido.");
                 return;
-            } else if (!AppUtils.isValidMobile(telefono)) {
+            }
+            if (!AppUtils.mobilEsValido(telefono)) {
                 JOptionPane.showMessageDialog(this, "El numero de telefono es invalido.");
                 return;
-            }else if (!AppUtils.isValidEmail(correo)){
+            }
+            if (!AppUtils.emailEsValido(correo)) {
                 JOptionPane.showMessageDialog(this, "El correo es invalido.");
                 return;
             }
 
-            String codigoGuia = AppUtils.generarCodigo(g.getRecursos(), GuiaTuristico.class, "G");
+            int cantidad = g.contarPorTipo(GuiaTuristico.class);
+            String codigoGuia = AppUtils.generarCodigo(cantidad, "G");
 
             Contacto contacto = new Contacto(telefono, correo);
-            GuiaTuristico nuevoGuia = new GuiaTuristico(nombre, parseEdad, rut, contacto, fechaIngreso, codigoGuia, idioma, parseExperiencia);
+            GuiaTuristico nuevoGuia = new GuiaTuristico(codigoGuia,nombre, parseEdad, rut, contacto, fechaIngreso,  idioma, parseExperiencia);
 
             String registroGuia = nuevoGuia.registrar();
-            JOptionPane.showMessageDialog(this,registroGuia);
+            JOptionPane.showMessageDialog(this, registroGuia);
             g.registrarRecurso(nuevoGuia);
+            g.guardarGuia();
+
+
 
             tfNombre.setText("");
             tfEdad.setText("");
@@ -541,22 +551,33 @@ public class MiVentana extends JFrame {
 
             int parseCapacidad = Integer.parseInt(capacidad);
 
-            if (parseCapacidad < 0){
+            if (parseCapacidad < 0) {
                 JOptionPane.showMessageDialog(this, "La capacidad debe ser mayor o igual a 0.");
                 return;
             }
 
-            String codigoVehiculo = AppUtils.generarCodigo(g.getRecursos(),Vehiculo.class,"V");
+            int cantidad = g.contarPorTipo(Vehiculo.class);
+            String codigoVehiculo = AppUtils.generarCodigo(cantidad, "V");
             Vehiculo nuevoVehiculo = new Vehiculo(codigoVehiculo, patente, modelo, parseCapacidad);
 
             String registroVehiculo = nuevoVehiculo.registrar();
-            JOptionPane.showMessageDialog(this,registroVehiculo);
-            g.registrarRecurso(nuevoVehiculo);
 
             tfPatente.setText("");
             tfModelo.setText("");
             tfCapacidad.setText("");
 
+            g.registrarRecurso(nuevoVehiculo);
+            g.guardarVehiculo();
+
+            txtConsola.append("");
+
+            txtConsola.append(nuevoVehiculo.registrar());
+            txtConsola.append("\n");
+            txtConsola.append("Activo: ");
+            txtConsola.append(nuevoVehiculo.mostrarResumen());
+            txtConsola.append("\n");
+
+            JOptionPane.showMessageDialog(this, registroVehiculo);
             actualizarTotal();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "La capacidad debe ser un número válido.");
@@ -571,34 +592,39 @@ public class MiVentana extends JFrame {
             String telefono = tfClienteTelefono.getText().trim();
             String correo = tfClienteCorreo.getText().trim();
 
-            if (nombre.isEmpty() || edad.isEmpty() || rut.isEmpty()|| telefono.isEmpty()|| correo.isEmpty()){
-                JOptionPane.showMessageDialog(this,"Complete todos los campos del Cliente.");
+            if (nombre.isEmpty() || edad.isEmpty() || rut.isEmpty() || telefono.isEmpty() || correo.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Complete todos los campos del Cliente.");
                 return;
             }
 
             int parseEdad = Integer.parseInt(edad);
 
-            if (parseEdad < 0){
+            if (parseEdad < 0) {
                 JOptionPane.showMessageDialog(this, "La edad debe ser mayor o igual a 0.");
                 return;
-            } else if (!AppUtils.isValid(rut)) {
+            }
+            if (!AppUtils.rutEsValido(rut)) {
                 JOptionPane.showMessageDialog(this, "El rut es invalido.");
                 return;
-            } else if (!AppUtils.isValidMobile(telefono)) {
+            }
+            if (!AppUtils.mobilEsValido(telefono)) {
                 JOptionPane.showMessageDialog(this, "El numero de telefono es invalido.");
                 return;
-            }else if (!AppUtils.isValidEmail(correo)){
+            }
+            if (!AppUtils.emailEsValido(correo)) {
                 JOptionPane.showMessageDialog(this, "El correo es invalido.");
                 return;
             }
 
-            String codigoCliente = AppUtils.generarCodigo(g.getRecursos(),Cliente.class,"C");
-            Contacto contactoCliente = new Contacto(telefono,correo);
-            Cliente nuevoCliente = new Cliente(nombre,parseEdad,rut,contactoCliente,codigoCliente);
+            int cantidad = g.contarPorTipo(Cliente.class);
+            String codigoCliente = AppUtils.generarCodigo(cantidad, "C");
+            Contacto contactoCliente = new Contacto(telefono, correo);
+            Cliente nuevoCliente = new Cliente(codigoCliente,nombre, parseEdad, rut, contactoCliente);
 
             String registroCliente = nuevoCliente.registrar();
-            JOptionPane.showMessageDialog(this,registroCliente);
+            JOptionPane.showMessageDialog(this, registroCliente);
             g.registrarRecurso(nuevoCliente);
+            g.guardarCliente();
 
             tfClienteNombre.setText("");
             tfClienteEdad.setText("");
@@ -614,30 +640,32 @@ public class MiVentana extends JFrame {
     }
 
 
-    private void agregarTour(){
-        try{
+    private void agregarTour() {
+        try {
             String nombre = tfNombreTour.getText().trim();
             String destino = tfDestinoTour.getText().trim();
             String precio = tfPrecioTour.getText().trim();
 
-            if (nombre.isEmpty() || destino.isEmpty()|| precio.isEmpty()){
-                JOptionPane.showMessageDialog(this,"Complete todos los campos del Tour.");
+            if (nombre.isEmpty() || destino.isEmpty() || precio.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Complete todos los campos del Tour.");
                 return;
             }
 
             int parsePrecio = Integer.parseInt(precio);
 
-            if (parsePrecio <= 0){
-                JOptionPane.showMessageDialog(this,"El precio debe ser mayor a 0.");
+            if (parsePrecio <= 0) {
+                JOptionPane.showMessageDialog(this, "El precio debe ser mayor a 0.");
                 return;
             }
 
-            String codigoTour = AppUtils.generarCodigo(g.getRecursos(),Tour.class,"T");
-            Tour nuevoTour = new Tour(codigoTour,nombre,destino,parsePrecio);
+            int cantidad = g.contarPorTipo(Tour.class);
+            String codigoTour = AppUtils.generarCodigo(cantidad, "T");
+            Tour nuevoTour = new Tour(codigoTour, nombre, destino, parsePrecio);
 
             String registroTour = nuevoTour.registrar();
             JOptionPane.showMessageDialog(this, registroTour);
             g.registrarRecurso(nuevoTour);
+            g.guardarTour();
 
             tfNombreTour.setText("");
             tfDestinoTour.setText("");
@@ -645,13 +673,46 @@ public class MiVentana extends JFrame {
 
             actualizarTotal();
 
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El precio debe ser un número válido.");
         }
     }
 
-    private void agregarConfigTour(){
+    private void inscripcionCliente() {
+        Cliente selectCliente = (Cliente) comboInscripcionCliente.getSelectedItem();
+        Tour selectTour = (Tour) comboInscripcionTour.getSelectedItem();
 
+        if (selectCliente == null || selectTour == null) {
+            JOptionPane.showMessageDialog(this, "Se deben seleccionar todos los campos..");
+            return;
+        }
+
+        if (selectTour.getClientes().contains(selectCliente)) {
+            JOptionPane.showMessageDialog(this, "El cliente ya se encuentra inscrito en este tour.");
+            return;
+        }
+
+
+        selectTour.getClientes().add(selectCliente);
+        JOptionPane.showMessageDialog(this, "El cliente " + selectCliente.getNombre() +" inscrito correctamente.");
+    }
+
+    private void agregarConfigTour() {
+
+
+        Tour selectTour = (Tour) comboTours.getSelectedItem();
+        GuiaTuristico selectGuia = (GuiaTuristico) comboGuias.getSelectedItem();
+        Vehiculo selectVehiculo = (Vehiculo) comboVehiculo.getSelectedItem();
+
+        if (selectTour == null || selectGuia == null || selectVehiculo == null) {
+            JOptionPane.showMessageDialog(this, "Se deben seleccionar todos los campos.");
+            return;
+        }
+
+        selectTour.setGuiaTuristico(selectGuia);
+        selectTour.setVehiculo(selectVehiculo);
+
+        JOptionPane.showMessageDialog(this, "Configuración del tour "+ selectTour.getNombre() +" actualizada correctamente.");
     }
 
     private void actualizarCombos() {
@@ -666,11 +727,17 @@ public class MiVentana extends JFrame {
             if (r instanceof Tour tour) {
                 comboTours.addItem(tour);
                 comboInscripcionTour.addItem(tour);
-            } else if (r instanceof GuiaTuristico guia) {
+            }
+
+            if (r instanceof GuiaTuristico guia) {
                 comboGuias.addItem(guia);
-            } else if (r instanceof Vehiculo vehiculo) {
+            }
+
+            if (r instanceof Vehiculo vehiculo) {
                 comboVehiculo.addItem(vehiculo);
-            } else if (r instanceof Cliente cliente) {
+            }
+
+            if (r instanceof Cliente cliente) {
                 comboInscripcionCliente.addItem(cliente);
             }
         }
@@ -685,6 +752,72 @@ public class MiVentana extends JFrame {
         panelFormularios.repaint();
     }
 
+
+    private void cargarClientesEnConsola() {
+        txtConsola.setText("");
+        String datos = g.getClientes();
+        if (datos.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay ningun cliente registrado.");
+            return;
+        }
+        txtConsola.append(datos);
+    }
+
+    private void cargarGuiasEnConsola() {
+        txtConsola.setText("");
+        String datos = g.getGuias();
+        if (datos.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay ningun guia registrado.");
+            return;
+        }
+        txtConsola.append(datos);
+    }
+
+    private void cargarToursEnConsola() {
+        txtConsola.setText("");
+        String datos = g.getTours();
+        if (datos == null || datos.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay ningún tour registrado.");
+            return;
+        }
+        txtConsola.append(datos + "\n");
+    }
+
+    private void cargarVehiculosEnConsola() {
+        txtConsola.setText("");
+        String datos = g.getVehiculos();
+        System.out.println(datos);
+        if (datos.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay ningun vehiculo registrado.");
+            return;
+        }
+        txtConsola.append(datos);
+    }
+
+    private void cargarRegistrosEnConsola() {
+        txtConsola.setText("");
+        String datos = g.generarReporte();
+        if (datos.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay ningun registro.");
+            return;
+        }
+        txtConsola.append(datos);
+    }
+
+    private void cargarBusquedaConsola() {
+        txtConsola.setText("");
+        String busqueda = tfTextoBuscar.getText().trim();
+        if (busqueda.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un parametro de busqueda.");
+            return;
+        }
+        String datos = g.getBuscar(busqueda);
+        if (datos.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay ningun registro de " + busqueda + ".");
+            return;
+        }
+        txtConsola.append(datos);
+    }
 
     /**
      * Actualiza el contador visual de registros existentes
