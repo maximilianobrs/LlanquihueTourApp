@@ -2,6 +2,12 @@ package model;
 
 import interfaces.Registrable;
 
+/**
+ * Representa a un cliente de la agencia turística.
+ * Hereda los datos de una persona e implementa la interfaz Registrable.
+ *
+ * @author Maxim
+ */
 public class Cliente extends Persona implements Registrable {
     private String codigoCliente;
 
@@ -12,8 +18,8 @@ public class Cliente extends Persona implements Registrable {
         this.codigoCliente = codigoCliente;
     }
 
-    public Cliente(String codigoCliente,String nombre, int edad, String rut, Contacto contacto) {
-        super(nombre, edad, rut, contacto);
+    public Cliente(String codigoCliente,String nombre,String rut, Contacto contacto) {
+        super(nombre,rut, contacto);
         this.codigoCliente = codigoCliente;
     }
 
@@ -37,7 +43,6 @@ public class Cliente extends Persona implements Registrable {
         return "Cliente | " +
                 "Codigo: " + getCodigoCliente() +
                 " | "+ "Nombre: " + getNombre() +
-                " | " + "Edad: " + getEdad() +
                 " | " + "Rut: " + getRut() +
                 " | " + "Correo: " +getCorreo() +
                 " | " + "Telefono: " + getTelefono();

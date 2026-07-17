@@ -1,3 +1,3 @@
-G001;Pedro Ramirez;40;10101010-2;pedro.ramirez@gmail.com;+56955555555;2020-03-15;Ingles;8
-G002;Laura Martinez;32;20202020-3;laura.martinez@gmail.com;+56966666666;2022-06-10;Frances;5
-G003;Diego Alvarez;45;30303030-4;diego.alvarez@gmail.com;+56977777777;2018-01-20;Aleman;10
+G001;Pedro Ramirez;10101010-2;+56955555555;pedro.ramirez@gmail.com;2020-03-15;Ingles
+G002;Laura Martinez;20202020-3;+56966666666;laura.martinez@gmail.com;2022-06-10;Frances
+G003;Diego Alvarez;30303030-4;+56977777777;diego.alvarez@gmail.com;2018-01-20;Aleman

@@ -3,12 +3,13 @@ package app;
 import ui.MiVentana;
 import javax.swing.*;
 import data.GestorEntidades;
+
 /**
  * Clase principal del sistema.
+ * Carga la informacion al gestor desde los archivos txt
  * Inicia la aplicación gráfica utilizando Java Swing.
- * @author Maxi
+ * @author Maxim
  */
-
 public class Main {
 
     public static void main(String[] args) {

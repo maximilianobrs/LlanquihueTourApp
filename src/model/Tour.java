@@ -4,10 +4,15 @@ import interfaces.Registrable;
 
 import java.util.ArrayList;
 
+/**
+ * Representa un tour turístico ofrecido por la agencia.
+ * Un tour puede tener un guía turístico, un vehículo y una lista de clientes.
+ *
+ * @author Maxim
+ */
 public class Tour implements Registrable {
     private String codigoTour;
     private String nombre;
-    private String destino;
     private int precio;
 
     private GuiaTuristico guiaTuristico;
@@ -17,17 +22,15 @@ public class Tour implements Registrable {
     public Tour() {
     }
 
-    public Tour(String codigoTour, String nombre, String destino, int precio) {
+    public Tour(String codigoTour, String nombre,int precio) {
         this.codigoTour = codigoTour;
         this.nombre = nombre;
-        this.destino = destino;
         this.precio = precio;
     }
 
-    public Tour(String codigoTour, String nombre, String destino, int precio, GuiaTuristico guiaTuristico, Vehiculo vehiculo, ArrayList<Cliente> clientes) {
+    public Tour(String codigoTour, String nombre,int precio, GuiaTuristico guiaTuristico, Vehiculo vehiculo, ArrayList<Cliente> clientes) {
         this.codigoTour = codigoTour;
         this.nombre = nombre;
-        this.destino = destino;
         this.precio = precio;
         this.guiaTuristico = guiaTuristico;
         this.vehiculo = vehiculo;
@@ -48,14 +51,6 @@ public class Tour implements Registrable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getDestino() {
-        return destino;
-    }
-
-    public void setDestino(String destino) {
-        this.destino = destino;
     }
 
     public int getPrecio() {
@@ -90,11 +85,14 @@ public class Tour implements Registrable {
         this.clientes = clientes;
     }
 
+    public void agregarCliente(Cliente cliente){
+        clientes.add(cliente);
+    }
+
     @Override
     public String mostrarResumen(){
         return "Tour | " + "Codigo: " + getCodigoTour() +
                 " | " + "Nombre: " + getNombre() +
-                " | " + "Destino: " + getDestino() +
                 " | " + "Precio: " + getPrecio() +
                 " | " + "Guia: " + getGuiaTuristico() +
                 " | " + "Vehiculo: " + getVehiculo() +

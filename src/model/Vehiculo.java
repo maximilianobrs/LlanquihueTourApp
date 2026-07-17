@@ -7,7 +7,7 @@ import interfaces.Registrable;
  * Hereda el código identificador de RecursoAgencia e incorpora
  * información propia del vehículo como patente, modelo y capacidad.
  *
- * @author Maxi
+ * @author Maxim
  */
 
 public class Vehiculo implements Registrable {

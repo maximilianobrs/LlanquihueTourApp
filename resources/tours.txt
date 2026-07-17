@@ -1,4 +1,5 @@
-T001;Ruta Lagos del Sur;Puerto Varas;45000
-T002;Aventura Volcan Osorno;Volcan Osorno;60000
-T003;Exploracion Chiloé;Castro;75000
-T004;Sendero Patagonia;Parque Nacional;90000
+T001;City Tour Chillán;15000;G003;V003;C001
+T002;Termas de Chillán;45000;;;
+T003;Ruta del Vino;30000;;;
+T004;Salto del Laja;25000;;;
+T005;Parque Nacional Conguillío;38000;;;

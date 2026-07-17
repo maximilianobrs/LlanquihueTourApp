@@ -1,11 +1,11 @@
 package interfaces;
 
 /**
- * Interfaz que define el comportamiento de los recursos
- * que pueden generar un resumen de información.
- * @author Maxi
+ * Define el contrato que deben implementar los recursos
+ * que pueden registrarse y mostrar un resumen de su información.
+ *
+ * @author Maxim
  */
-
 public interface Registrable {
     String mostrarResumen();
     String registrar();

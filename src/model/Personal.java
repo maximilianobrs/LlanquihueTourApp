@@ -1,25 +1,31 @@
 package model;
 
+/**
+ * Representa al personal de la agencia turística.
+ * Hereda los datos básicos de una persona y agrega el cargo que desempeña.
+ *
+ * @author Maxim
+ */
 public abstract class Personal extends Persona {
-    private String fechaDeIngreso;
+    private String cargo;
 
     public Personal() {
     }
 
-    public Personal(String fechaDeIngreso) {
-        this.fechaDeIngreso = fechaDeIngreso;
+    public Personal(String cargo) {
+        this.cargo = cargo;
     }
 
-    public Personal(String nombre, int edad, String rut, Contacto contacto, String fechaDeIngreso) {
-        super(nombre, edad, rut, contacto);
-        this.fechaDeIngreso = fechaDeIngreso;
+    public Personal(String nombre, String rut, Contacto contacto, String cargo) {
+        super(nombre,rut, contacto);
+        this.cargo = cargo;
     }
 
-    public String getFechaDeIngreso() {
-        return fechaDeIngreso;
+    public String getCargo() {
+        return cargo;
     }
 
-    public void setFechaDeIngreso(String fechaDeIngreso) {
-        this.fechaDeIngreso = fechaDeIngreso;
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 }

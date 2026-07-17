@@ -1,5 +1,11 @@
 package model;
 
+/**
+ * Representa la información de contacto de una persona.
+ * Almacena el teléfono y el correo electrónico.
+ *
+ * @author Maxim
+ */
 public class Contacto {
     private String telefono;
     private String correo;
