@@ -1,5 +1,7 @@
 package model;
 
+import interfaces.Registrable;
+
 /**
  * Representa un guía turístico perteneciente a la agencia.
  * Hereda el código identificador de RecursoAgencia e incorpora

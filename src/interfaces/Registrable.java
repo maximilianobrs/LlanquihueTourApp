@@ -1,4 +1,4 @@
-package model;
+package interfaces;
 
 /**
  * Define el contrato que deben implementar los recursos.

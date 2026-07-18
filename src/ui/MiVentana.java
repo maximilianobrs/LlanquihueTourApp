@@ -1,8 +1,10 @@
 package ui;
 
-import model.Registrable;
+import interfaces.Registrable;
 import model.*;
 import data.*;
+import exception.DatoEsInvalidoException;
+import exception.RutEsInvalidoException;
 import utils.AppUtils;
 
 import javax.swing.*;

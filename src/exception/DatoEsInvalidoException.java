@@ -1,4 +1,4 @@
-package model;
+package exception;
 
 public class DatoEsInvalidoException extends Exception{
     public DatoEsInvalidoException(String mensaje){

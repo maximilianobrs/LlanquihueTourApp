@@ -1,5 +1,7 @@
 package model;
 
+import interfaces.Registrable;
+
 import java.util.ArrayList;
 
 /**

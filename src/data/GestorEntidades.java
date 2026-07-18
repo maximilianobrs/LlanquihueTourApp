@@ -1,7 +1,7 @@
 package data;
 
 import model.*;
-import model.Registrable;
+import interfaces.Registrable;
 
 
 import java.io.*;
