@@ -462,7 +462,7 @@ public class MiVentana extends JFrame {
             Contacto contacto = new Contacto(telefono, correo);
             GuiaTuristico nuevoGuia = new GuiaTuristico(codigoGuia, nombre, rut, contacto, cargo, idioma);
 
-            g.registrarRecurso(nuevoGuia);
+            String registrar = g.registrarRecurso(nuevoGuia);
             g.guardarGuia();
 
             tfNombre.setText("");
@@ -472,12 +472,7 @@ public class MiVentana extends JFrame {
             tfCargo.setText("");
             tfIdioma.setText("");
 
-
-            txtConsola.append(nuevoGuia.registrar());
-            txtConsola.append("\n");
-            txtConsola.append("Personal: ");
-            txtConsola.append(nuevoGuia.mostrarResumen());
-            txtConsola.append("\n");
+            txtConsola.append(registrar);
 
             JOptionPane.showMessageDialog(this, nuevoGuia.registrar());
             actualizarTotal();
@@ -620,15 +615,13 @@ public class MiVentana extends JFrame {
             String precio = tfPrecioTour.getText().trim();
 
             if (nombre.isEmpty() || precio.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Complete todos los campos del Tour.");
-                return;
+                throw new DatoEsInvalidoException("Complete todos los campos del Tour.");
             }
 
             int parsePrecio = Integer.parseInt(precio);
 
             if (parsePrecio <= 0) {
-                JOptionPane.showMessageDialog(this, "El precio debe ser mayor a 0.");
-                return;
+                throw new DatoEsInvalidoException("El precio debe ser mayor a 0.");
             }
 
             int cantidad = g.contarPorTipo(Tour.class);
@@ -638,19 +631,18 @@ public class MiVentana extends JFrame {
             tfNombreTour.setText("");
             tfPrecioTour.setText("");
 
-            g.registrarRecurso(nuevoTour);
+            String registrar = g.registrarRecurso(nuevoTour);
             g.guardarTour();
 
-            txtConsola.append(nuevoTour.registrar());
-            txtConsola.append("\n");
-            txtConsola.append("Servicio: ");
-            txtConsola.append(nuevoTour.mostrarResumen());
-            txtConsola.append("\n");
+            txtConsola.append(registrar);
 
             JOptionPane.showMessageDialog(this, nuevoTour.registrar());
             actualizarTotal();
 
-        } catch (NumberFormatException e) {
+        }catch (DatoEsInvalidoException e){
+            txtConsola.append("Error: " + e.getMessage() + "\n");
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El precio debe ser un número válido.");
         }
     }
@@ -660,23 +652,23 @@ public class MiVentana extends JFrame {
      * Inscribe a un cliente a un tour seleccionado.
      */
     private void inscripcionCliente() {
-        Tour selectTour = (Tour) comboInscripcionTour.getSelectedItem();
-        Cliente selectCliente = (Cliente) comboInscripcionCliente.getSelectedItem();
+            Tour selectTour = (Tour) comboInscripcionTour.getSelectedItem();
+            Cliente selectCliente = (Cliente) comboInscripcionCliente.getSelectedItem();
 
-        if (selectCliente == null || selectTour == null) {
-            JOptionPane.showMessageDialog(this, "Se deben seleccionar todos los campos.");
-            return;
-        }
+            if (selectCliente == null || selectTour == null) {
+                JOptionPane.showMessageDialog(this, "Se deben seleccionar todos los campos.");
+                return;
+            }
 
-        if (selectTour.getClientes().contains(selectCliente)) {
-            JOptionPane.showMessageDialog(this, "El cliente ya se encuentra inscrito en este tour.");
-            return;
-        }
+            if (selectTour.getClientes().contains(selectCliente)) {
+                JOptionPane.showMessageDialog(this, "El cliente ya se encuentra inscrito en este tour.");
+                return;
+            }
 
 
-        selectTour.getClientes().add(selectCliente);
-        g.guardarTour();
-        JOptionPane.showMessageDialog(this, "El cliente " + selectCliente.getNombre() + " inscrito correctamente.");
+            selectTour.getClientes().add(selectCliente);
+            g.guardarTour();
+            JOptionPane.showMessageDialog(this, "El cliente " + selectCliente.getNombre() + " inscrito correctamente.");
     }
 
     /**

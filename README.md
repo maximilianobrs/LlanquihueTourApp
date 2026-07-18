@@ -12,30 +12,57 @@
 
 ## 📚 Descripción general del sistema
 
-Este proyecto corresponde al desarrollo de un sistema para la agencia de turismo Llanquihue Tour, utilizando los principios de la Programación Orientada a Objetos en Java.
+Este proyecto desarrolla un prototipo en Java para digitalizar la gestión de la agencia de turismo Llanquihue Tour. Mediante una interfaz gráfica (Java Swing), permite administrar clientes, guías, vehículos y tours, almacenando la información en archivos de texto. Además, aplica los principales conceptos de Programación Orientada a Objetos, como encapsulamiento, herencia, polimorfismo, interfaces y manejo de excepciones personalizadas.
 
-En esta semana se incorporó el uso de polimorfismo y colecciones genéricas (List), permitiendo almacenar distintos tipos de servicios turísticos en una misma colección y recorrerlos de forma dinámica mediante referencias de la superclase.
+## 🧩 Clases principales
 
-## ✨ Funcionalidades adicionales
+| Clase | Qué hace |
+|---|---|
+| `Persona` | Datos base: nombre, rut, contacto. |
+| `Personal` | Hereda de Persona, agrega el cargo. |
+| `Cliente` | Datos de un cliente. |
+| `GuiaTuristico` | Datos de un guía. |
+| `Tour` | Un tour, con su guía, vehículo y clientes. |
+| `Vehiculo` | Datos de un vehículo. |
+| `Contacto` | Teléfono y correo de una persona. |
+| `Registrable` | Define qué debe tener cada clase para poder registrarse. |
+| `GestorEntidades` | Guarda todo, busca, filtra y lee/escribe los `.txt`. |
+| `AppUtils` | Valida rut, correo, teléfono, etc. |
+| `MiVentana` | La interfaz gráfica. |
+| `Main` | Inicia el programa. |
 
-Toque personal de un `do-while` en `Main` como efecto de carga del sistema.
-
-
--------------------------------------------
+---
 ## 📁 Estructura del proyecto
 
 ```bash
 LlanquihueTourApp/
 ├── src/
+│   ├── app/
+│   │   └── Main.java
 │   ├── data/
-│   │   └── GestorServicios.java
+│   │   └── GestorEntidades.java
+│   ├── exception/
+│   │   ├── DatoEsInvalidoException.java
+│   │   └── RutEsInvalidoException.java
+│   ├── interfaces/
+│   │   └── Registrable.java
 │   ├── model/
-│   │   ├── ExcursionCultural.java
-│   │   ├── PaseoLacustre.java
-│   │   ├── RutaGastronomica.java
-│   │   └── ServicioTuristico.java
-│   └── ui/
-│       └── Main.java
+│   │   ├── Cliente.java
+│   │   ├── Contacto.java
+│   │   ├── GuiaTuristico.java
+│   │   ├── Persona.java
+│   │   ├── Personal.java
+│   │   ├── Tour.java
+│   │   └── Vehiculo.java
+│   ├── ui/
+│   │   └── MiVentana.java
+│   └── utils/
+│       └── AppUtils.java
+├── resources/
+│   ├── clientes.txt
+│   ├── guias.txt
+│   ├── vehiculos.txt
+│   └── tours.txt
 ├── .gitignore
 └── README.md
 ```

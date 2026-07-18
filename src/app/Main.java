@@ -10,6 +10,7 @@ import data.GestorEntidades;
  * Inicia la aplicación gráfica utilizando Java Swing.
  * @author Maxim
  */
+
 public class Main {
 
     public static void main(String[] args) {

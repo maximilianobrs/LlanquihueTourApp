@@ -1,5 +1,8 @@
-C001;Juan Perez;12345678-9;+56911111111;juan.perez@gmail.com
-C002;Maria Soto;98765432-1;+56922222222;maria.soto@gmail.com
-C003;Carlos Rojas;11222333-4;+56933333333;carlos.rojas@gmail.com
-C004;Ana Gonzalez;55666777-8;+56944444444;ana.gonzalez@gmail.com
-C005;fsafasfa;14444444-5;max@gmail.com;966665555
+C001;Juan Perez;12345678-9;juan.perez@gmail.com;+56911111111
+C002;Maria Soto;98765432-1;maria.soto@gmail.com;+56922222222
+C003;Carlos Rojas;11222333-4;carlos.rojas@gmail.com;+56933333333
+C004;Ana Gonzalez;55666777-8;ana.gonzalez@gmail.com;+56944444444
+C005;fsafasfa;14444444-5;966665555;max@gmail.com
+C006;Juan;12345678-K;max@gmail.com;987636542
+C007;JUAN;19.876.999-K;987653214;max@gmail.com
+C008;JUAN;11.111.111-K;max@gmail.com;977776666
