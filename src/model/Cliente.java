@@ -1,7 +1,5 @@
 package model;
 
-import interfaces.Registrable;
-
 /**
  * Representa a un cliente de la agencia turística.
  * Hereda los datos de una persona e implementa la interfaz Registrable.

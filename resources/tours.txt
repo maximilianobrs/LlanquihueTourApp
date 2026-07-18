@@ -1,5 +1,7 @@
-T001;City Tour Chillán;15000;G003;V003;C001
+T001;City Tour Chillán;15000;G003;V003;,C001
 T002;Termas de Chillán;45000;;;
 T003;Ruta del Vino;30000;;;
 T004;Salto del Laja;25000;;;
 T005;Parque Nacional Conguillío;38000;;;
+T006;SALTOS;10000;;;
+T007;MINAS;20000;;;

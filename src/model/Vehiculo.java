@@ -1,7 +1,5 @@
 package model;
 
-import interfaces.Registrable;
-
 /**
  * Representa un vehículo utilizado por la agencia turística.
  * Hereda el código identificador de RecursoAgencia e incorpora

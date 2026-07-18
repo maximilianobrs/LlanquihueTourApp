@@ -1,7 +1,5 @@
 package model;
 
-import interfaces.Registrable;
-
 import java.util.ArrayList;
 
 /**
@@ -22,13 +20,13 @@ public class Tour implements Registrable {
     public Tour() {
     }
 
-    public Tour(String codigoTour, String nombre,int precio) {
+    public Tour(String codigoTour, String nombre, int precio) {
         this.codigoTour = codigoTour;
         this.nombre = nombre;
         this.precio = precio;
     }
 
-    public Tour(String codigoTour, String nombre,int precio, GuiaTuristico guiaTuristico, Vehiculo vehiculo, ArrayList<Cliente> clientes) {
+    public Tour(String codigoTour, String nombre, int precio, GuiaTuristico guiaTuristico, Vehiculo vehiculo, ArrayList<Cliente> clientes) {
         this.codigoTour = codigoTour;
         this.nombre = nombre;
         this.precio = precio;
@@ -85,27 +83,27 @@ public class Tour implements Registrable {
         this.clientes = clientes;
     }
 
-    public void agregarCliente(Cliente cliente){
+    public void agregarCliente(Cliente cliente) {
         clientes.add(cliente);
     }
 
     @Override
-    public String mostrarResumen(){
+    public String mostrarResumen() {
         return "Tour | " + "Codigo: " + getCodigoTour() +
                 " | " + "Nombre: " + getNombre() +
                 " | " + "Precio: " + getPrecio() +
                 " | " + "Guia: " + getGuiaTuristico() +
                 " | " + "Vehiculo: " + getVehiculo() +
-                " | " +"Clientes: { "+getClientes() + " }";
+                " | " + "Clientes: " + getClientes();
     }
 
     @Override
     public String registrar() {
-        return "Tour "+ getNombre()+" registrado correctamente.";
+        return "Tour " + getNombre() + " registrado correctamente.";
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "ID: " + getCodigoTour() + " T: " + getNombre();
     }
 }

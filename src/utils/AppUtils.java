@@ -91,11 +91,55 @@ public class AppUtils {
             return false;
         }
 
-        email = email.trim();
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
 
-        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-
-        return email.matches(regex);
+        return email.trim().matches(regex);
     }
 
+    /**
+     * Valida el formato de una patente de vehiculo.
+     *
+     * @param patente la patente que se quiere validar.
+     * @return true si el formato es válido y false en caso contrario.
+     */
+    public static boolean patenteEsValida(String patente){
+        if (patente == null){
+            return false;
+        }
+
+        String regex = "^(?:[A-Z]{4}-?[0-9]{2}|[A-Z]{2}-?[0-9]{4})$";
+
+        return patente.trim().toUpperCase().matches(regex);
+
+    }
+
+    public static boolean validarCargo(String cargo){
+        if (cargo == null){
+            return false;
+        }
+
+        String regex = "^(?=(?:[^0-9]*[0-9]){0,2}[^0-9]*$)[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 \\/\\-\\.]{3,50}$";
+        return cargo.trim().matches(regex);
+    }
+
+    public static boolean validarNombre(String nombre){
+        if (nombre == null){
+            return true;
+        }
+
+
+        String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{2,60}$";
+
+        return !nombre.trim().matches(regex);
+    }
+
+    public static boolean validarModelo(String modelo){
+        if (modelo == null){
+            return false;
+        }
+
+        String regex = "^[a-zA-Z0-9 \\-\\.]{2,30}$";
+
+        return modelo.trim().matches(regex);
+    }
 }

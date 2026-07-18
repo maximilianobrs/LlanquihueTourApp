@@ -1,7 +1,7 @@
 package data;
 
 import model.*;
-import interfaces.Registrable;
+import model.Registrable;
 
 
 import java.io.*;
@@ -26,19 +26,29 @@ public class GestorEntidades {
      *
      * @param recurso recurso que será agregado al sistema.
      */
-    public void registrarRecurso(Registrable recurso) {
+    public String registrarRecurso(Registrable recurso) {
         recursos.add(recurso);
-    }
 
-    /**
-     * Carga todos los recursos almacenados en los archivos de texto
-     * de clientes, guías, vehículos y tours.
-     */
-    public void cargarRecursos() {
-        cargarClientes("resources/clientes.txt");
-        cargarGuias("resources/guias.txt");
-        cargarVehiculos("resources/vehiculos.txt");
-        cargarTours("resources/tours.txt");
+        StringBuilder mensaje = new StringBuilder();
+
+        String etiqueta = "";
+
+        if (recurso instanceof GuiaTuristico) {
+            etiqueta = "Personal: ";
+        } else if (recurso instanceof Vehiculo) {
+            etiqueta = "Activo: ";
+        } else if (recurso instanceof Cliente) {
+            etiqueta = "Destinatario: ";
+        } else if (recurso instanceof Tour) {
+            etiqueta = "Servicio: ";
+        }
+
+        mensaje.append(recurso.registrar())
+                .append("\n")
+                .append(etiqueta).append(recurso.mostrarResumen())
+                .append("\n");
+
+        return mensaje.toString();
     }
 
     /**
@@ -51,7 +61,6 @@ public class GestorEntidades {
         StringBuilder reporte = new StringBuilder();
 
         for (Registrable r : recursos) {
-
             String etiqueta = "";
 
             if (r instanceof GuiaTuristico) {
@@ -64,8 +73,9 @@ public class GestorEntidades {
                 etiqueta = "Servicio: ";
             }
 
-            reporte.append(etiqueta)
-                    .append(r.mostrarResumen())
+            reporte.append(r.registrar())
+                    .append("\n")
+                    .append(etiqueta).append(r.mostrarResumen())
                     .append("\n");
         }
 
@@ -73,106 +83,39 @@ public class GestorEntidades {
     }
 
     /**
-     * Obtiene un reporte con todos los tours registrados.
+     * Busca recursos de un tipo específico, opcionalmente filtrando por texto.
      *
-     * @return cadena con la información de los tours.
+     * @param tipo     tipo de recurso a filtrar ("Todos", "Cliente", "Guía", "Vehículo", "Tour").
+     * @param busqueda texto de búsqueda puede ir vacio para mostrar todos los registros segun lo que elija el usuario.
+     * @return entrega la informacion segun los terminos entregados por el usuario.
      */
-    public String getTours() {
+    public String getBuscarPorTipo(String tipo, String busqueda) {
         StringBuilder reporte = new StringBuilder();
 
         for (Registrable r : recursos) {
-            if (r instanceof Tour) {
-                reporte.append("Servicio: ")
-                        .append(r.mostrarResumen())
-                        .append("\n");
+
+
+            boolean coincideTipo = tipo.equals("Todos")
+                    || (tipo.equals("Cliente") && r instanceof Cliente)
+                    || (tipo.equals("Guía") && r instanceof GuiaTuristico)
+                    || (tipo.equals("Vehículo") && r instanceof Vehiculo)
+                    || (tipo.equals("Tour") && r instanceof Tour);
+
+            if (!coincideTipo) {
+                continue;
             }
-        }
 
-        return reporte.toString();
-    }
-
-    /**
-     * Obtiene un reporte con todos los clienetes registrados.
-     *
-     * @return cadena con la información de los clientes.
-     */
-    public String getClientes() {
-        StringBuilder reporte = new StringBuilder();
-
-        for (Registrable r : recursos) {
-            if (r instanceof Cliente) {
-                reporte.append("Destinatario: ")
-                        .append(r.mostrarResumen())
-                        .append("\n");
-            }
-        }
-
-        return reporte.toString();
-    }
-
-    /**
-     * Obtiene un reporte con todos los guias registrados.
-     *
-     * @return cadena con la información de los guias.
-     */
-    public String getGuias() {
-        StringBuilder reporte = new StringBuilder();
-
-        for (Registrable r : recursos) {
-            if (r instanceof GuiaTuristico) {
-                reporte.append("Personal: ")
-                        .append(r.mostrarResumen())
-                        .append("\n");
-            }
-        }
-
-        return reporte.toString();
-    }
-
-    /**
-     * Obtiene un reporte con todos los vehiculos registrados.
-     *
-     * @return cadena con la información de los vehiculos.
-     */
-    public String getVehiculos() {
-        StringBuilder reporte = new StringBuilder();
-
-        for (Registrable r : recursos) {
-            if (r instanceof Vehiculo) {
-                reporte.append("Activo: ")
-                        .append(r.mostrarResumen())
-                        .append("\n");
-            }
-        }
-
-        return reporte.toString();
-    }
-
-    /**
-     * Busca recursos cuyo resumen contenga el texto indicado.
-     *
-     * @param parametro texto utilizado para realizar la búsqueda.
-     * @return recursos encontrados que coinciden con el criterio.
-     */
-    public String getBuscar(String parametro) {
-        StringBuilder reporte = new StringBuilder();
-
-        for (Registrable r : recursos) {
-
-            if (r.mostrarResumen().toLowerCase().contains(parametro.toLowerCase())) {
+            if (busqueda == null || busqueda.isEmpty() || r.mostrarResumen().toLowerCase().contains(busqueda.toLowerCase())) {
 
                 String etiqueta = "";
 
                 if (r instanceof GuiaTuristico) {
                     etiqueta = "Personal: ";
-                }
-                if (r instanceof Vehiculo) {
+                } else if (r instanceof Vehiculo) {
                     etiqueta = "Activo: ";
-                }
-                if (r instanceof Cliente) {
+                } else if (r instanceof Cliente) {
                     etiqueta = "Destinatario: ";
-                }
-                if (r instanceof Tour) {
+                } else if (r instanceof Tour) {
                     etiqueta = "Servicio: ";
                 }
 
@@ -193,9 +136,15 @@ public class GestorEntidades {
     public void cargarClientes(String rutaArchivo) {
 
         File archivo = new File(rutaArchivo);
-        if (!archivo.exists()) return;
 
         try {
+
+            if (!archivo.exists()) {
+                if (archivo.createNewFile()) {
+                    System.out.println("Archivo creado correctamente");
+                }
+            }
+
             BufferedReader br = new BufferedReader(new FileReader(rutaArchivo));
 
             String linea;
@@ -224,10 +173,17 @@ public class GestorEntidades {
      * @param rutaArchivo ruta del archivo que contiene los guias.
      */
     public void cargarGuias(String rutaArchivo) {
+
         File archivo = new File(rutaArchivo);
-        if (!archivo.exists()) return;
 
         try {
+
+            if (!archivo.exists()) {
+                if (archivo.createNewFile()) {
+                    System.out.println("Archivo creado correctamente");
+                }
+            }
+
             BufferedReader br = new BufferedReader(new FileReader(rutaArchivo));
 
             String linea;
@@ -262,9 +218,15 @@ public class GestorEntidades {
     public void cargarTours(String rutaArchivo) {
 
         File archivo = new File(rutaArchivo);
-        if (!archivo.exists()) return;
 
         try {
+
+            if (!archivo.exists()) {
+                if (archivo.createNewFile()) {
+                    System.out.println("Archivo creado correctamente");
+                }
+            }
+
             BufferedReader br = new BufferedReader(new FileReader(rutaArchivo));
             String linea;
 
@@ -320,9 +282,15 @@ public class GestorEntidades {
      */
     public void cargarVehiculos(String rutaArchivo) {
         File archivo = new File(rutaArchivo);
-        if (!archivo.exists()) return;
 
         try {
+
+            if (!archivo.exists()) {
+                if (archivo.createNewFile()) {
+                    System.out.println("Archivo creado correctamente");
+                }
+            }
+
             BufferedReader br = new BufferedReader(new FileReader(rutaArchivo));
 
             String linea;
@@ -421,7 +389,7 @@ public class GestorEntidades {
                     StringBuilder codigosClientes = new StringBuilder();
 
                     for (Cliente c : t.getClientes()) {
-                        if (codigosClientes.length() > 0) {
+                        if (codigosClientes.isEmpty()) {
                             codigosClientes.append(",");
                         }
                         codigosClientes.append(c.getCodigoCliente());
@@ -475,7 +443,8 @@ public class GestorEntidades {
      * @param tipo clase del recurso que se desea contar.
      * @return cantidad de recursos encontrados.
      */
-    public int contarPorTipo(Class tipo) {
+
+    public int contarPorTipo(Class<?> tipo) {
         int contador = 0;
 
         for (Registrable r : recursos) {
@@ -512,5 +481,16 @@ public class GestorEntidades {
      */
     public List<Registrable> getRecursos() {
         return recursos;
+    }
+
+    /**
+     * Carga todos los recursos almacenados en los archivos de texto
+     * de clientes, guías, vehículos y tours.
+     */
+    public void cargarRecursos() {
+        cargarClientes("resources/clientes.txt");
+        cargarGuias("resources/guias.txt");
+        cargarVehiculos("resources/vehiculos.txt");
+        cargarTours("resources/tours.txt");
     }
 }
